@@ -23,9 +23,9 @@ export default class HomePage extends React.Component {
   }
 
   getRandomUserName(options = { caseValue: "snake" }) {
-    const { caseValue } = options;
+    const { caseValue, shouldCapitalize } = options;
 
-    const url = `http://localhost:3001/api/v1/generate_random_username?case=${options.caseValue}`;
+    const url = `http://localhost:3001/api/v1/generate_random_username?case=${options.caseValue}&capitalize=${shouldCapitalize}`;
 
     fetch(url, {
       method: "GET"
