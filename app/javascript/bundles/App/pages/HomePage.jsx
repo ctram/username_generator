@@ -45,6 +45,24 @@ export default class HomePage extends React.Component {
     this.getRandomUserName(options);
   }
 
+  calcWidthOfUsernamesTable() {
+    const width = window.innerWidth;
+
+    if (width >= 1920) {
+      return 6;
+    } else if (width >= 1440) {
+      return 5;
+    } else if (width >= 1082) {
+      return 4;
+    } else if (width >= 826) {
+      return 3;
+    } else if (width >= 560) {
+      return 2;
+    } else {
+      return 1;
+    }
+  }
+
   render() {
     const { usernames } = this.state;
 
@@ -60,7 +78,10 @@ export default class HomePage extends React.Component {
           <div className="my-5 username">{domMainUsername}</div>
         )}
         {usernames.length > 1 && (
-          <TableUsernames usernames={usernames.slice(1, usernames.length)} />
+          <TableUsernames
+            usernames={usernames.slice(1, usernames.length)}
+            width={this.calcWidthOfUsernamesTable()}
+          />
         )}
       </div>
     );
