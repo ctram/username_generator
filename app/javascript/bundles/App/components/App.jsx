@@ -5,6 +5,8 @@ import HomePage from '../pages/HomePage';
 
 export default class App extends React.Component {
   render() {
-    return <HomePage />;
+    return <div className="p-5">
+      <HomePage />
+    </div>
   }
 }
