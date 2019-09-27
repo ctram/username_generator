@@ -4,6 +4,8 @@ import React from "react";
 import "../styles/page.css";
 import "../styles/page-home.css";
 
+import RandomUsernameForm from "../components/RandomUsernameForm";
+
 export default class HomePage extends React.Component {
   constructor(props) {
     super(props);
@@ -11,9 +13,16 @@ export default class HomePage extends React.Component {
     this.state = {
       username: ""
     };
+
+    this.getRandomUserName = this.getRandomUserName.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
+    this.getRandomUserName();
+  }
+
+  getRandomUserName() {
     fetch("http://localhost:3001/api/v1/something_random", {
       method: "GET"
     })
@@ -27,6 +36,10 @@ export default class HomePage extends React.Component {
       });
   }
 
+  handleSubmit(data) {
+    this.getRandomUserName();
+  }
+
   render() {
     const { username } = this.state;
 
@@ -36,7 +49,9 @@ export default class HomePage extends React.Component {
       <div className="page page-home">
         <h1>Username Generator</h1>
         {domUsername && <div className="my-5 username">{domUsername}</div>}
-        <button className="btn btn-primary">Random Username</button>
+        <div className="my-5">
+          <RandomUsernameForm onSubmit={this.handleSubmit} />
+        </div>
       </div>
     );
   }
