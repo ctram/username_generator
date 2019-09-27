@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import "../styles/page.css";
+import "../styles/page-home.css";
 
 export default class HomePage extends React.Component {
   componentDidMount() {
