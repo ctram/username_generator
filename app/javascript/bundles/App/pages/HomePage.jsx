@@ -22,8 +22,12 @@ export default class HomePage extends React.Component {
     this.getRandomUserName();
   }
 
-  getRandomUserName() {
-    fetch("http://localhost:3001/api/v1/something_random", {
+  getRandomUserName(options = { caseValue: "snake" }) {
+    const { caseValue } = options;
+
+    const url = `http://localhost:3001/api/v1/generate_random_username?case=${options.caseValue}`;
+
+    fetch(url, {
       method: "GET"
     })
       .then(res => {
@@ -36,8 +40,8 @@ export default class HomePage extends React.Component {
       });
   }
 
-  handleSubmit(data) {
-    this.getRandomUserName();
+  handleSubmit(options) {
+    this.getRandomUserName(options);
   }
 
   render() {
