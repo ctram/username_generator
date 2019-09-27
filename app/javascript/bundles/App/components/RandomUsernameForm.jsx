@@ -7,16 +7,22 @@ export default class RandomUsernameForm extends React.Component {
 
     this.state = {
       caseValue: "snake",
-      shouldCapitalize: false
+      shouldCapitalize: false,
+      numUsernamesToShow: 1
     };
 
     this.handleChangeCase = this.handleChangeCase.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeCapitalize = this.handleChangeCapitalize.bind(this);
+    this.handleChangeNumUsernamesToShow = this.handleChangeNumUsernamesToShow.bind(this);
   }
 
   handleChangeCase(e) {
     this.setState({ caseValue: e.target.value });
+  }
+
+  handleChangeNumUsernamesToShow(e) {
+    this.setState({ numUsernamesToShow: e.target.value });
   }
 
   handleSubmit(e) {
@@ -30,15 +36,11 @@ export default class RandomUsernameForm extends React.Component {
   }
 
   render() {
-    const { caseValue, shouldCapitalize } = this.state;
+    const { caseValue, shouldCapitalize, numUsernamesToShow } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit} className="text-left">
-        <div className="form-check">
-          <input onChange={this.handleChangeCapitalize} type="checkbox" checked={shouldCapitalize} id="checkbox-capitalize" className="form-check-input"/>
-          <label htmlFor="checkbox-capitalize" className="form-check-label">Capitalize</label>
-        </div>
-        <fieldset className="text-left">
+        <fieldset className="my-3">
           <legend>Case</legend>
           <div className="form-check">
             <input
@@ -94,6 +96,16 @@ export default class RandomUsernameForm extends React.Component {
             </label>
           </div>
         </fieldset>
+        <div className="form-group">
+          <div className="form-check">
+            <input onChange={this.handleChangeCapitalize} type="checkbox" checked={shouldCapitalize} id="checkbox-capitalize" className="form-check-input"/>
+            <label htmlFor="checkbox-capitalize" className="form-check-label">Capitalize</label>
+          </div>
+        </div>
+        <div className="form-group">
+          <label htmlFor="input-num-usersnames-to-show">Number of usernames to show</label>
+          <input onChange={this.handleChangeNumUsernamesToShow} value={numUsernamesToShow} type="number" step="1" min="1" max="101" id="input-num-usersnames-to-show" className="form-control" />
+        </div>
         <button className="btn btn-primary mt-5">Random Username</button>
       </form>
     );

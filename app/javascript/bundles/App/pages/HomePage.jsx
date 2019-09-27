@@ -5,13 +5,14 @@ import "../styles/page.css";
 import "../styles/page-home.css";
 
 import RandomUsernameForm from "../components/RandomUsernameForm";
+import TableUsernames from "../components/TableUsernames";
 
 export default class HomePage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: ""
+      usernames: []
     };
 
     this.getRandomUserName = this.getRandomUserName.bind(this);
@@ -19,13 +20,13 @@ export default class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    this.getRandomUserName();
+    this.getRandomUserName({ numUsernamesToShow: 1 });
   }
 
   getRandomUserName(options = { caseValue: "snake" }) {
-    const { caseValue, shouldCapitalize } = options;
+    const { caseValue, shouldCapitalize, numUsernamesToShow } = options;
 
-    const url = `http://localhost:3001/api/v1/generate_random_username?case=${options.caseValue}&capitalize=${shouldCapitalize}`;
+    const url = `http://localhost:3001/api/v1/generate_random_username?case=${options.caseValue}&capitalize=${shouldCapitalize}&num_usernames_to_show=${numUsernamesToShow}`;
 
     fetch(url, {
       method: "GET"
@@ -35,7 +36,7 @@ export default class HomePage extends React.Component {
       })
       .then(json => {
         this.setState({
-          username: json.username
+          usernames: json.usernames
         });
       });
   }
@@ -45,17 +46,22 @@ export default class HomePage extends React.Component {
   }
 
   render() {
-    const { username } = this.state;
+    const { usernames } = this.state;
 
-    let domUsername = username;
+    let domMainUsername = usernames[0];
 
     return (
       <div className="page page-home">
         <h1>Username Generator</h1>
-        {domUsername && <div className="my-5 username">{domUsername}</div>}
         <div className="my-5">
           <RandomUsernameForm onSubmit={this.handleSubmit} />
         </div>
+        {domMainUsername && (
+          <div className="my-5 username">{domMainUsername}</div>
+        )}
+        {usernames.length > 1 && (
+          <TableUsernames usernames={usernames.slice(1, usernames.length)} />
+        )}
       </div>
     );
   }
