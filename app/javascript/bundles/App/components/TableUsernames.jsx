@@ -11,9 +11,7 @@ function TableUsernames(props) {
   let domRows = [];
   let domCells = [];
 
-  ;
   usernames.forEach((username, idx) => {
-    ;
     domCells.push(
       <td className="p-3" key={username}>
         {username}
