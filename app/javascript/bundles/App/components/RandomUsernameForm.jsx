@@ -104,7 +104,7 @@ export default class RandomUsernameForm extends React.Component {
         </div>
         <div className="form-group">
           <label htmlFor="input-num-usersnames-to-show">Number of usernames to show</label>
-          <input onChange={this.handleChangeNumUsernamesToShow} value={numUsernamesToShow} type="number" step="1" min="1" max="101" id="input-num-usersnames-to-show" className="form-control" />
+          <input onChange={this.handleChangeNumUsernamesToShow} value={numUsernamesToShow} type="number" step="1" min="1" max="1000" id="input-num-usersnames-to-show" className="form-control" />
         </div>
         <button className="btn btn-primary mt-5">Random Username</button>
       </form>
