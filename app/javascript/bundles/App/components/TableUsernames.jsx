@@ -18,8 +18,10 @@ function TableUsernames(props) {
       </td>
     );
 
-    if (idx !== 0 && (idx % (width - 1) === 0 || idx == usernames.length - 1)) {
-      ;
+    if (
+      width === 1 ||
+      (idx !== 0 && (idx % (width - 1) === 0 || idx == usernames.length - 1))
+    ) {
       domRows.push(<tr key={idx / (width - 1)}>{domCells}</tr>);
       domCells = [];
     }
